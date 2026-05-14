@@ -249,6 +249,37 @@ nav a:hover::after{transform:scaleX(1)}
   .dual-cd{flex-direction:column}
   .cd-block{min-width:100%}
 }
+
+/* ── SCROLL HINT ── */
+.scroll-hint{
+  position:absolute;bottom:28px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  z-index:10;cursor:pointer;
+  animation:hintFade 1s 2s ease forwards;
+  opacity:0;
+}
+@keyframes hintFade{from{opacity:0}to{opacity:1}}
+.scroll-hint-text{
+  font-size:9px;letter-spacing:3px;text-transform:uppercase;
+  color:rgba(248,240,224,.4);font-family:'Jost',sans-serif;
+}
+.scroll-hint-arrow{
+  width:32px;height:32px;border-radius:50%;
+  border:1.5px solid rgba(248,240,224,.2);
+  display:flex;align-items:center;justify-content:center;
+  animation:bounce 1.8s ease-in-out infinite;
+}
+.scroll-hint-arrow svg{
+  width:14px;height:14px;
+}
+@keyframes bounce{
+  0%,100%{transform:translateY(0);opacity:.4}
+  50%{transform:translateY(5px);opacity:1}
+}
+/* rose variant for qizlar bazmi */
+.scroll-hint.rose .scroll-hint-text{color:rgba(253,245,242,.38)}
+.scroll-hint.rose .scroll-hint-arrow{border-color:rgba(253,245,242,.18)}
+
 </style>
 </head>
 <body>
@@ -479,6 +510,10 @@ nav a:hover::after{transform:scaleX(1)}
       <span id="h-cta">📍 Manzilni ko'rish</span>
     </button>
   </div>
+  <div class="scroll-hint" onclick="document.getElementById('countdown').scrollIntoView({behavior:'smooth'})">
+    <span class="scroll-hint-text" data-swipe="1">Pastga suring</span>
+    <div class="scroll-hint-arrow"><svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l6 6 6-6" stroke="rgba(248,240,224,0.7)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+  </div>
 </div>
 
 <!-- COUNTDOWN -->
@@ -500,6 +535,10 @@ nav a:hover::after{transform:scaleX(1)}
         <div class="cdw">7 Iyun 2026, 18:00</div>
       </div>
     </div>
+  </div>
+  <div class="scroll-hint" onclick="document.getElementById('details').scrollIntoView({behavior:'smooth'})">
+    <span class="scroll-hint-text" data-swipe="1">Pastga suring</span>
+    <div class="scroll-hint-arrow"><svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l6 6 6-6" stroke="rgba(248,240,224,0.7)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
   </div>
 </div>
 
@@ -529,6 +568,10 @@ nav a:hover::after{transform:scaleX(1)}
         <div class="ipv" id="det-loc-val">Osiyo Toyxonasi, Toshkent</div>
       </div>
     </div>
+  </div>
+  <div class="scroll-hint" onclick="document.getElementById('map-section').scrollIntoView({behavior:'smooth'})">
+    <span class="scroll-hint-text" data-swipe="1">Pastga suring</span>
+    <div class="scroll-hint-arrow"><svg viewBox="0 0 14 8" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l6 6 6-6" stroke="rgba(248,240,224,0.7)" stroke-width="1.5" stroke-linecap="round"/></svg></div>
   </div>
 </div>
 
@@ -669,6 +712,7 @@ s('det-toy-lbl',t.dettoylbl); s('det-toy-val',t.dettoyval);
   // map
   s('map-title',t.maptitle); s('map-sub',t.mapsub); s('map-btn3',t.mapbtn3);
   // footer
+  document.querySelectorAll('[data-swipe]').forEach(el=>el.textContent=l==='ru'?'Листайте вниз':'Pastga suring');
   sh('footer-msg',t.footermsg); s('footer-date',t.footerdate);
 }
 
